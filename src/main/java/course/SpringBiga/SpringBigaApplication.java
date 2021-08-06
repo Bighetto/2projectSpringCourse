@@ -8,8 +8,5 @@ public class SpringBigaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBigaApplication.class, args);
-
-
 	}
-
 }
