@@ -1,6 +1,8 @@
 package course.SpringBiga.Domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class Produto implements Serializable {
     private String name;
     private Double price;
 
+    @JsonBackReference
     @ManyToMany
     @JoinTable(name = "CATEGORIA_PRODUTO",
             joinColumns = @JoinColumn(name = "id_produto"),
