@@ -33,6 +33,8 @@ public class SpringBigaApplication implements CommandLineRunner {
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	private Produto cat = new Produto();
 
@@ -101,6 +103,20 @@ public class SpringBigaApplication implements CommandLineRunner {
 
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+
+		ItemPedido ip1 = new ItemPedido(ped1,  p1,0.0,  1, 2000.0);
+		ItemPedido ip2 = new ItemPedido(ped2, p3,0.0, 2, 80.0);
+		ItemPedido ip3 = new ItemPedido(ped2, p2,100.0 , 1, 800.0);
+
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+
+		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
+
 
 	}
 }
