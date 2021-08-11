@@ -1,6 +1,7 @@
 package course.SpringBiga;
 
 import course.SpringBiga.Domain.*;
+import course.SpringBiga.Domain.Enums.EstadoPagamento;
 import course.SpringBiga.Domain.Enums.TipoCliente;
 import course.SpringBiga.Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 
@@ -27,6 +29,10 @@ public class SpringBigaApplication implements CommandLineRunner {
 	private ClienteRepository clienteRepository;
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 
 	private Produto cat = new Produto();
 
@@ -79,6 +85,22 @@ public class SpringBigaApplication implements CommandLineRunner {
 
 		clienteRepository.saveAll(Arrays.asList(cli1));
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+		Pedido ped1 = new Pedido(null, sdf.parse("28/10/2021 22:23"), cli1, e1);
+		Pedido ped2 = new Pedido(null, sdf.parse("30/08/2021 13:37"), cli1, e2);
+
+		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 5);
+		ped1.setPagamento(pagto1);
+
+		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("01/09/2021 00:00"), null);
+		ped2.setPagamento(pagto2);
+
+		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
+
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 
 	}
 }
