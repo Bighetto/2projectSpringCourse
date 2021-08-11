@@ -2,6 +2,7 @@ package course.SpringBiga.Domain;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,6 +26,7 @@ public class Produto implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "id_categoria"))//criado o mapeamento informando qual tabela vai relacionar o produto e categoria
     private List<Categoria> categorias = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany
     private Set<ItemPedido> itens = new HashSet<>();
 
@@ -37,6 +39,7 @@ public class Produto implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public List<Pedido> getPedidos(){
         List<Pedido> lista = new ArrayList<>();//implementacao de lista dos pedidos;
         for (ItemPedido x : itens){
