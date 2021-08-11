@@ -1,6 +1,6 @@
 package course.SpringBiga.Domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import course.SpringBiga.Domain.Enums.EstadoPagamento;
 
 import javax.persistence.*;
@@ -16,7 +16,7 @@ public abstract class Pagamento implements Serializable {
     private Integer id;
     private Integer estado;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId

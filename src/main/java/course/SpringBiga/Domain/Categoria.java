@@ -1,6 +1,5 @@
 package course.SpringBiga.Domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,7 +16,7 @@ public class Categoria implements Serializable {
     private Integer id;
     private String name;
 
-    @JsonManagedReference
+
     @ManyToMany(mappedBy = "categorias")
     private List<Produto> produtos = new ArrayList<>();
 
