@@ -4,6 +4,7 @@ import course.SpringBiga.Domain.Categoria;
 import course.SpringBiga.Repositories.CategoriaRepository;
 import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -29,6 +30,10 @@ public class CategoriaService {
     public Categoria update (Categoria obj) throws ObjectNotFoundException {//update quando o id nao for nulo
         find(obj.getId());
         return repo.save(obj);
+    }
+
+    public void delete(Integer id){
+            repo.deleteById(id);
     }
 
 }
