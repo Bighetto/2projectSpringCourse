@@ -5,8 +5,12 @@ import course.SpringBiga.Repositories.CategoriaRepository;
 import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +44,7 @@ public class CategoriaService {
     public List<Categoria> findAll() {
         return repo.findAll();
     }
+
 }
 
 
