@@ -2,8 +2,8 @@ package course.SpringBiga.Resources;
 
 
 import course.SpringBiga.Domain.Cliente;
-import course.SpringBiga.Domain.DTO.CategoriaDTO;
 import course.SpringBiga.Domain.DTO.ClienteDTO;
+import course.SpringBiga.Domain.DTO.ClienteNewDTO;
 import course.SpringBiga.Services.ClienteService;
 import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +29,11 @@ public class ClienteResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void>insert(@RequestBody Cliente obj){
+    public ResponseEntity<Void>insert(@RequestBody ClienteNewDTO objDTO){
+        Cliente obj = service.fromDTO(objDTO);
         obj = service.insert(obj);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
